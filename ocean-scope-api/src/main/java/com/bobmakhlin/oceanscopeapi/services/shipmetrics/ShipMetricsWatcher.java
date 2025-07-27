@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.UUID;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 @Slf4j
 public class ShipMetricsWatcher {

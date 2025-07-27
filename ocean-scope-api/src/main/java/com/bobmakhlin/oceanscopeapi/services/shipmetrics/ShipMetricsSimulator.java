@@ -13,6 +13,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class ShipMetricsSimulator {
+    private static final double SPEED_CHANGE_CHANCE = 0.3; // 30%
+    private static final double HEADING_CHANGE_CHANCE = 0.001; // 0.1%
+
     private final ShipRepository shipRepository;
     private final ShipMetricsService shipMetricsService;
 
@@ -34,8 +37,8 @@ public class ShipMetricsSimulator {
         }
     }
 
-    private double maybeChange(double value, double min, double max, double range) {
-        if (Math.random() < 0.3) { // 30% chance to change
+    private double maybeChange(double chance, double value, double min, double max, double range) {
+        if (Math.random() < chance) {
             double delta = (Math.random() - 0.5) * 2 * range;
             value += delta;
         }
@@ -55,12 +58,12 @@ public class ShipMetricsSimulator {
     }
 
     private void updateSpeed(UUID shipId, ShipMetrics currentMetrics) {
-        var newSpeed = maybeChange(currentMetrics.getSpeed(), 5, 25, 1);
+        var newSpeed = maybeChange(SPEED_CHANGE_CHANCE, currentMetrics.getSpeed(), 5, 25, 1);
         shipMetricsService.updateSpeed(shipId, newSpeed);
     }
 
     private void updateHeading(UUID shipId, ShipMetrics currentMetrics) {
-        var newHeading = maybeChange(currentMetrics.getHeading(), 0, 359, 10);
+        var newHeading = maybeChange(HEADING_CHANGE_CHANCE, currentMetrics.getHeading(), 0, 359, 10);
         shipMetricsService.updateHeading(shipId, newHeading);
     }
 }
