@@ -15,8 +15,5 @@ public class Ship {
     private UUID id;
     private String name;
     private ShipType type;
-    private double lat;
-    private double lng;
-    private double speed;
-    private double heading;
+    private ShipMetrics metrics;
 }

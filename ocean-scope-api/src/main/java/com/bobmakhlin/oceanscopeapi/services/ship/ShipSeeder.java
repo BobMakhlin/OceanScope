@@ -1,4 +1,4 @@
-package com.bobmakhlin.oceanscopeapi.services;
+package com.bobmakhlin.oceanscopeapi.services.ship;
 
 import com.bobmakhlin.oceanscopeapi.swagger.api.ShipApiDelegate;
 import com.bobmakhlin.oceanscopeapi.swagger.model.AddShip;
