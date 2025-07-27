@@ -1,6 +1,6 @@
 package com.bobmakhlin.oceanscopeapi.services.shipmetrics;
 
-import com.bobmakhlin.oceanscopeapi.repository.ShipRepository;
+import com.bobmakhlin.oceanscopeapi.swagger.api.ShipApiDelegate;
 import com.bobmakhlin.oceanscopeapi.swagger.model.ShipMetrics;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class ShipMetricsSimulator {
     private static final double SPEED_CHANGE_CHANCE = 0.3; // 30%
     private static final double HEADING_CHANGE_CHANCE = 0.001; // 0.1%
 
-    private final ShipRepository shipRepository;
+    private final ShipApiDelegate shipService;
     private final ShipMetricsService shipMetricsService;
 
     private static final double KNOTS_TO_LATLNG = 0.000514; // approximation
@@ -25,7 +25,7 @@ public class ShipMetricsSimulator {
     public void simulateShipMetrics() {
         log.info("Simulating $hip metrics...");
 
-        var ships = shipRepository.findAll();
+        var ships = shipService.getShips(null);
 
         for (var ship : ships) {
             var currentMetrics = shipMetricsService.getShipMetrics(ship.getId());

@@ -8,6 +8,7 @@ import com.bobmakhlin.oceanscopeapi.swagger.model.Ship;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class ShipServiceImpl implements ShipApiDelegate {
     private final ShipMetricsService shipMetricsService;
     private final ShipMapper shipMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public List<Ship> getShips(String shipName) {
         log.info("Getting ships. shipName = {}", shipName);
@@ -30,6 +32,7 @@ public class ShipServiceImpl implements ShipApiDelegate {
         return ships;
     }
 
+    @Transactional
     @Override
     public Ship addShip(AddShip addShip) {
         var shipEntity = shipMapper.addShipToShipEntity(addShip);

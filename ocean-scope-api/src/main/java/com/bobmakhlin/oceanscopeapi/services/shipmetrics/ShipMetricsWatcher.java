@@ -1,6 +1,7 @@
 package com.bobmakhlin.oceanscopeapi.services.shipmetrics;
 
 import com.bobmakhlin.oceanscopeapi.repository.ShipRepository;
+import com.bobmakhlin.oceanscopeapi.swagger.api.ShipApiDelegate;
 import com.bobmakhlin.oceanscopeapi.swagger.model.ShipMetrics;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +12,11 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.UUID;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 @Slf4j
 public class ShipMetricsWatcher {
-    private final ShipRepository shipRepository;
+    private final ShipApiDelegate shipService;
     private final ShipMetricsService shipMetricsService;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -23,7 +24,7 @@ public class ShipMetricsWatcher {
     public void watchShipMetrics() {
         log.info("Watching $hip metrics...");
 
-        var ships = shipRepository.findAll();
+        var ships = shipService.getShips(null);
         var shipMetricsMap = new HashMap<UUID, ShipMetrics>();
         for (var ship : ships) {
             var currentMetrics = shipMetricsService.getShipMetrics(ship.getId());

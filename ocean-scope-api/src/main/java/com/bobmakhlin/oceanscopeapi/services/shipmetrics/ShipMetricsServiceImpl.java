@@ -30,7 +30,7 @@ public class ShipMetricsServiceImpl implements ShipMetricsService {
             return false;
         }
         metrics.setLat(lat);
-        metrics.setLng(lat);
+        metrics.setLng(lng);
         return true;
     }
 
@@ -65,11 +65,12 @@ public class ShipMetricsServiceImpl implements ShipMetricsService {
         }
 
         private static double randomLat() {
-            return randomDouble(-90, 90);
+            // Mid North Atlantic (visible in your map screenshot)
+            return randomDouble(0, 40);  // Equator up to Portugal's latitude
         }
 
         private static double randomLng() {
-            return randomDouble(-180, 180);
+            return randomDouble(-50, -20);  // West Africa to the east of the Caribbean
         }
 
         private static double randomSpeed() {
