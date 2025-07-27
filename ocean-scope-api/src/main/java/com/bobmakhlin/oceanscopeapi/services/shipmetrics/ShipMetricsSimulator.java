@@ -12,9 +12,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ShipMetricSimulator {
+public class ShipMetricsSimulator {
     private final ShipRepository shipRepository;
-    private final ShipMetricService shipMetricService;
+    private final ShipMetricsService shipMetricsService;
 
     private static final double KNOTS_TO_LATLNG = 0.000514; // approximation
 
@@ -25,11 +25,10 @@ public class ShipMetricSimulator {
         var ships = shipRepository.findAll();
 
         for (var ship : ships) {
-            var currentMetrics = shipMetricService.getShipMetrics(ship.getId());
+            var currentMetrics = shipMetricsService.getShipMetrics(ship.getId());
 
             // Move based on speed and heading.
             simulateMovement(ship.getId(), currentMetrics);
-            // Occasionally change speed and heading.
             updateSpeed(ship.getId(), currentMetrics);
             updateHeading(ship.getId(), currentMetrics);
         }
@@ -52,16 +51,16 @@ public class ShipMetricSimulator {
         var newLat = Math.clamp(currentMetrics.getLat() + deltaLat, -90, 90);
         var newLng = Math.clamp(currentMetrics.getLng() + deltaLng, -180, 180);
 
-        shipMetricService.updateCoordinates(shipId, newLat, newLng);
+        shipMetricsService.updateCoordinates(shipId, newLat, newLng);
     }
 
     private void updateSpeed(UUID shipId, ShipMetrics currentMetrics) {
         var newSpeed = maybeChange(currentMetrics.getSpeed(), 5, 25, 1);
-        shipMetricService.updateSpeed(shipId, newSpeed);
+        shipMetricsService.updateSpeed(shipId, newSpeed);
     }
 
     private void updateHeading(UUID shipId, ShipMetrics currentMetrics) {
         var newHeading = maybeChange(currentMetrics.getHeading(), 0, 359, 10);
-        shipMetricService.updateHeading(shipId, newHeading);
+        shipMetricsService.updateHeading(shipId, newHeading);
     }
 }

@@ -4,7 +4,7 @@ import com.bobmakhlin.oceanscopeapi.swagger.model.ShipMetrics;
 
 import java.util.UUID;
 
-public interface ShipMetricService {
+public interface ShipMetricsService {
     ShipMetrics getShipMetrics(UUID shipId);
 
     boolean updateCoordinates(UUID shipId, double lat, double lng);

@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public class ShipMetricServiceImpl implements ShipMetricService {
+public class ShipMetricsServiceImpl implements ShipMetricsService {
     private final ConcurrentHashMap<UUID, ShipMetrics> shipMetrics = new ConcurrentHashMap<>();
 
     @Override
