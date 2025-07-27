@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ShipDashboard from '@/components/ShipDashboard.vue'
+import ShipDashboard from '@/features/ship/ShipDashboard.vue'
 </script>
 
 <template>

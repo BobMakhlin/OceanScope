@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { LMap, LMarker, LTileLayer } from '@vue-leaflet/vue-leaflet'
 import type { Ship } from '@/models/Ship.ts'
-import { useOpenSeaTileLayers } from '@/components/useOpenSeaTileLayers.ts'
-import { getShipIcon } from '@/utils/shipIcon.ts'
 import { computed } from 'vue'
+import { useOpenSeaTileLayers } from './useOpenSeaTileLayers.ts'
+import { getShipIcon } from '@/features/ship/ship-map/shipIcon.ts'
 
 const { osmUrl, osmAttribution, openSeaMapUrl, openSeaMapAttribution } = useOpenSeaTileLayers()
 
@@ -39,5 +39,3 @@ const mapCenter = computed<[number, number]>(() => {
     />
   </l-map>
 </template>
-
-<style scoped></style>
