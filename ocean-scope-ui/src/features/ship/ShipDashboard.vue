@@ -13,17 +13,23 @@ onMounted(() => {
   loadShips()
 })
 
-watch(shipMetrics, (updatedMetrics) => {
-  if (isConnected.value && updatedMetrics) {
-    console.log('updatedMetrics:', updatedMetrics);
-    ships.value.forEach(ship => {
-      const shipNewMetrics = updatedMetrics[ship.id];
+watch(
+  [isConnected, shipMetrics],
+  ([connected, updatedMetrics]) => {
+    if (!connected || !updatedMetrics) {
+      return
+    }
+    console.log('updatedMetrics:', updatedMetrics)
+
+    ships.value.forEach((ship) => {
+      const shipNewMetrics = updatedMetrics[ship.id]
       if (shipNewMetrics) {
-        ship.metrics = shipNewMetrics;
+        ship.metrics = { ...shipNewMetrics }
       }
-    });
-  }
-})
+    })
+  },
+  { flush: 'post' },
+)
 </script>
 
 <template>
