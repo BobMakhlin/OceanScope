@@ -14,14 +14,8 @@ const props = defineProps<{
 const shipsWithIcons = computed(() => {
   return props.ships.map((ship) => ({ ...ship, icon: getShipIcon(ship.type) }))
 })
-const mapCenter = computed<[number, number]>(() => {
-  const defaultCoordinates: [number, number] = [50.5, -1.5]
-  if (!props.ships?.length) {
-    return defaultCoordinates
-  }
-  const firstShipMetrics = props.ships[0].metrics
-  return [firstShipMetrics.lat, firstShipMetrics.lng] as [number, number]
-})
+// Default coordinates.
+const mapCenter: [number, number] = [50.5, -1.5];
 </script>
 
 <template>

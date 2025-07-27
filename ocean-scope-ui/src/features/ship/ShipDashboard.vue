@@ -1,14 +1,28 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useShips } from '@/features/ship/useShips.ts'
 import ShipList from '@/features/ship/ShipList.vue'
 import ShipMap from '@/features/ship/ship-map/ShipMap.vue'
 import Loader from '@/core/components/Loader.vue'
+import { useShipWebSocket } from '@/features/ship/useShipsWebSocket.ts'
 
 const { ships, loadShips, isLoading } = useShips()
+const { isConnected, shipMetrics } = useShipWebSocket()
 
 onMounted(() => {
   loadShips()
+})
+
+watch(shipMetrics, (updatedMetrics) => {
+  if (isConnected.value && updatedMetrics) {
+    console.log('updatedMetrics:', updatedMetrics);
+    ships.value.forEach(ship => {
+      const shipNewMetrics = updatedMetrics[ship.id];
+      if (shipNewMetrics) {
+        ship.metrics = shipNewMetrics;
+      }
+    });
+  }
 })
 </script>
 

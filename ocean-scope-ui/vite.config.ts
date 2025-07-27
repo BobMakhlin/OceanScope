@@ -13,7 +13,7 @@ export default defineConfig({
     vueDevTools(),
   ],
   optimizeDeps: {
-    include: ["leaflet"],
+    include: ["leaflet", "sockjs-client"],
   },
   resolve: {
     alias: {
