@@ -18,7 +18,7 @@ public class ShipMetricsSimulator {
 
     private static final double KNOTS_TO_LATLNG = 0.000514; // approximation
 
-    @Scheduled(fixedRate = 2500)
+    @Scheduled(fixedRateString = "${ship.metrics.simulation.interval}")
     public void simulateShipMetrics() {
         log.info("Simulating $hip metrics...");
 

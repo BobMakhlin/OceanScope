@@ -19,7 +19,7 @@ public class ShipMetricsWatcher {
     private final ShipMetricsService shipMetricsService;
     private final ApplicationEventPublisher eventPublisher;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRateString = "${ship.metrics.watcher.polling.interval}")
     public void watchShipMetrics() {
         log.info("Watching $hip metrics...");
 
