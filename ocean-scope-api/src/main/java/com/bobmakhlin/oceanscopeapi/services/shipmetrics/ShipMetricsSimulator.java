@@ -58,7 +58,7 @@ public class ShipMetricsSimulator {
     }
 
     private void updateSpeed(UUID shipId, ShipMetrics currentMetrics) {
-        var newSpeed = maybeChange(SPEED_CHANGE_CHANCE, currentMetrics.getSpeed(), 5, 25, 1);
+        var newSpeed = maybeChange(SPEED_CHANGE_CHANCE, currentMetrics.getSpeed(), 12, 25, 1);
         shipMetricsService.updateSpeed(shipId, newSpeed);
     }
 
