@@ -6,12 +6,14 @@ import com.bobmakhlin.oceanscopeapi.swagger.api.ShipApiDelegate;
 import com.bobmakhlin.oceanscopeapi.swagger.model.AddShip;
 import com.bobmakhlin.oceanscopeapi.swagger.model.Ship;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ShipServiceImpl implements ShipApiDelegate {
 
     private final ShipRepository shipRepository;
@@ -20,6 +22,7 @@ public class ShipServiceImpl implements ShipApiDelegate {
 
     @Override
     public List<Ship> getShips(String shipName) {
+        log.info("Getting ships. shipName = {}", shipName);
         var shipEntities = shipName == null ? shipRepository.findAll() : shipRepository.findByNameContainingIgnoreCase(shipName);
         var ships = shipMapper.shipEntitiesToShips(shipEntities);
         ships.forEach(ship -> ship.setMetrics(shipMetricsService.getShipMetrics(ship.getId())));
